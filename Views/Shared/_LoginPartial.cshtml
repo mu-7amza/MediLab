@@ -1,0 +1,114 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+
+<html>
+    <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="Unify Admin Panel" />
+    <meta name="keywords" content="Admin, Dashboard, Bootstrap4, Sass, CSS3, HTML5, Responsive Dashboard, Responsive Admin Template, Admin Template, Best Admin Template, Bootstrap Template, Themeforest" />
+    <meta name="author" content="Bootstrap Gallery" />
+    <link rel="shortcut icon" href="~/assets/img/favicon.ico" />
+    <title>Unify Admin Dashboard</title>
+
+    <!-- Common CSS -->
+    <link rel="stylesheet" href="~/assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/assets/fonts/icomoon/icomoon.css" />
+    <link rel="stylesheet" href="~/assets/css/main.css" />
+
+    <!-- Other CSS includes plugins - Cleanedup unnecessary CSS -->
+    <!-- Chartist css -->
+    <link href="~/assets/vendor/chartist/css/chartist.min.css" rel="stylesheet" />
+    <link href="~/assets/vendor/chartist/css/chartist-custom.css" rel="stylesheet" />
+    </head>
+    <body>
+        <ul class="navbar-nav">
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <li class="dropdown">
+                <a href="#" id="userSettings" class="user-settings" data-toggle="dropdown" aria-haspopup="true">
+                    @if (UserManager.GetUserAsync(User).Result.ProfilePicture is not null)
+                    {
+                        <img class="avatar rounded-circle" src="data:image/*;base64,@(Convert.ToBase64String(UserManager.GetUserAsync(User).Result.ProfilePicture))" alt="User Thumb" />
+                        <i class="icon-chevron-small-down"></i>
+                    }
+                    else
+                    {
+                        <img class="avatar rounded-circle" src="~/images/istockphoto-1327592506-612x612.jpg" alt="User Thumb" />
+                        <i class="icon-chevron-small-down"></i>
+                    }
+
+                </a>
+                <div class="dropdown-menu lg dropdown-menu-right" aria-labelledby="userSettings">
+                    <ul class="user-settings-list">
+                        <li>
+                            <a asp-area="Identity" asp-page="/Account/Manage/Index">
+                                <div class="icon">
+                                    <i class="icon-account_circle"></i>
+                                </div>
+                                <p>Profile</p>
+                            </a>
+                        </li>
+                       
+                        <li>
+                            @if (!User.IsInRole("Doctor"))
+                            {
+                                <a asp-controller="Appointment" asp-action="Index">
+                                    <div class="icon yellow">
+                                        <i class="icon-schedule"></i>
+                                    </div>
+                                    <p>Appointment</p>
+                                </a>
+                            }
+                           
+                        </li>
+                    </ul>
+                    <div class="logout-btn">
+                        <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                            <button type="submit" class="logout nav-link btn btn-warning">Logout</button>
+                        </form>
+                    </div>
+                </div>
+            </li>
+        }
+        else
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
+            </li>
+        }
+        </ul>
+   
+
+    
+    </body>
+</html>
+<script src="~/assets/js/jquery.js"></script>
+<script src="~/assets/js/tether.min.js"></script>
+<script src="~/assets/js/bootstrap.min.js"></script>
+<script src="~/assets/vendor/unifyMenu/unifyMenu.js"></script>
+<script src="~/assets/vendor/onoffcanvas/onoffcanvas.js"></script>
+<script src="~/assets/js/moment.js"></script>
+
+<!-- Slimscroll JS -->
+<script src="~/assets/vendor/slimscroll/slimscroll.min.js"></script>
+<script src="~/assets/vendor/slimscroll/custom-scrollbar.js"></script>
+
+<!-- Chartist JS -->
+<script src="~/assets/vendor/chartist/js/chartist.min.js"></script>
+<script src="~/assets/vendor/chartist/js/chartist-tooltip.js"></script>
+<script src="~/assets/vendor/chartist/js/custom/custom-line-chart.js"></script>
+<script src="~/assets/vendor/chartist/js/custom/custom-line-chart1.js"></script>
+<script src="~/assets/vendor/chartist/js/custom/custom-area-chart.js"></script>
+<script src="~/assets/vendor/chartist/js/custom/donut-chart2.js"></script>
+<script src="~/assets/vendor/chartist/js/custom/custom-line-chart4.js"></script>
+
+<!-- Common JS -->
+<script src="js/common.js"></script>

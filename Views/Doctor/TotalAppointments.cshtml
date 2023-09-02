@@ -1,0 +1,43 @@
+﻿@model IEnumerable<AppointmentViewModel>
+@inject UserManager<ApplicationUser> userManager
+
+@{
+    if (Model.Count() <= 0)
+    {
+        <h1>You don't have any appointments</h1>
+    }
+    else
+    {
+
+        var name = userManager.GetUserName(User);
+
+        <h1>Dr/ @name Appointments</h1>
+        
+        <hr />
+        <br />
+        <div class="row">
+            @foreach (var data in Model)
+            {
+                <div class="card row-md-1 mr-5" style="width: 18rem;">
+                    <img src="~/assets/Doctor-Appointment-Letter-Templates-for-Word-and-PDF.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">@data.FullName</h5>
+                        <p class="card-subtitle"></p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Phone : @data.Phone</li>
+                        <li class="list-group-item">Date : @data.Date</li>
+                        <li class="list-group-item">Time : @data.Time</li>
+                    </ul>
+                    <div class="card-body">
+                        <a href="#" class="card-link btn btn-primary">Accept</a>
+                        <a href="#" class="card-link btn btn-danger">Reject</a>
+                    </div>
+                </div>
+            }
+        </div>
+
+    }
+
+}
+

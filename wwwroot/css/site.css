@@ -1,0 +1,62 @@
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+}
+header {
+    background: rgba(28,74,90, 0.9);
+
+}
+nav{
+    margin:0;
+    padding:0;
+    
+}
+.navbar-brand{
+    margin-bottom:16px;
+    
+}
+@media (max-width: 768px) {
+    .navbar-collapse {
+        background: rgba(28,74,90, 0.9);
+    }
+}
+
+.top-nav-collapse {
+    padding: 0;
+    background: rgba(28,74,90, 0.9);
+}
+
+/*Custom Styles*/
+.profile-picture{
+    width:295px;
+    height:295px;
+    object-fit:cover
+}
+.avatar{
+    width:40px;
+    height:40px;
+    object-fit:cover;
+}
+.logout{
+    font-weight:bold;
+}
+.logout:hover{
+    background-color:darkgoldenrod
+}
+.register-from{
+    position:center;
+}

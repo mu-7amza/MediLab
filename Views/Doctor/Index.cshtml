@@ -1,0 +1,58 @@
+﻿@using UserManagment.Models
+@model IEnumerable<Appointment>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Medilab Free Bootstrap HTML5 Template</title>
+	<meta name="description" content="Free Bootstrap Theme by BootstrapMade.com">
+	<meta name="keywords" content="free website templates, free bootstrap themes, free template, free bootstrap, free website template">
+
+	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway|Candal">
+	<link rel="stylesheet" type="text/css" href="~/files/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="~/files/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="~/css/style.css">
+	<link rel="stylesheet" href="~/FrontFiles/fonts/style.css">
+	</head>
+	<body>
+	<div class="main-container">
+		<!-- Content wrapper start -->
+		<div class="content-wrapper">
+
+			<!-- Row start -->
+			<div class="row gutters">
+				<div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-12">
+					<div class="hospital-tiles">
+						<a asp-controller="Doctor" asp-action="TotalAppointments" >
+							<img src="~/FrontFiles/img/hospital/appointment.svg" alt="Appointments" />
+						</a>
+						<p>Total Appointments</p>
+						<h2>@Model.Count()</h2>
+					</div>
+				</div>
+				<div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-12">
+					<div class="hospital-tiles">
+						<img src="~/FrontFiles/img/hospital/appointment.svg" alt="Appointments" />
+						<p>Accepted Appointments</p>
+						<h2>@Model.Count()</h2>
+					</div>
+				</div>
+				<div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-12">
+					<div class="hospital-tiles">
+						<img src="~/FrontFiles/img/hospital/appointment.svg" alt="Appointments" />
+						<p> Rejected Appointments</p>
+						<h2>@Model.Count()</h2>
+					</div>
+				</div>
+
+
+			</div>
+			<!-- Row end -->
+
+
+		</div>
+	</div>
+	</body>
+	</html>
