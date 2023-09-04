@@ -1,6 +1,6 @@
 ## MediLab
 ### Description: Medilab is Medical website for reserving medical appointments, responsive design, full services with Admin & Doctor & User Privilage
-### Tools: Front { html,css,js,bootstrap}; Backend{C#, sql server, Linq, Ef core,asp.net core, asp.net core Identity,ajax,ViewModels}
+### Tools: html,css,js,bootstrap ، C#, Razor Pages , sql server, Linq, Ef core,asp.net core, asp.net core Identity,ajax,ViewModels
 ![Capture](https://github.com/mu-7amza/MediLab/assets/109220973/d6ea7085-d884-4ab9-808d-67ff8bc11668)
 ![8](https://github.com/mu-7amza/MediLab/assets/109220973/f9024f25-e5bc-4902-826f-95a9aafc8eaa)
 ![2](https://github.com/mu-7amza/MediLab/assets/109220973/d24fcd9c-63d6-411d-a467-3d0ce711327c)
