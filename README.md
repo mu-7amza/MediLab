@@ -9,3 +9,6 @@
 ![5](https://github.com/mu-7amza/MediLab/assets/109220973/f25fdb42-fa57-4536-8531-d272349052d1)
 ![6](https://github.com/mu-7amza/MediLab/assets/109220973/993286b2-f139-409a-8cbf-5a82658f26ab)
 ![7](https://github.com/mu-7amza/MediLab/assets/109220973/1cb25f89-27d0-450e-ae8b-9ec9f7f8178b)
+![app](https://github.com/mu-7amza/MediLab/assets/109220973/8871beba-a102-4d1d-b5d4-332dc10cbe8f)
+![Dashboard](https://github.com/mu-7amza/MediLab/assets/109220973/b35ce554-7980-4106-ba0b-ccb9579bef19)
+
