@@ -1,5 +1,10 @@
 ﻿@using UserManagment.Models
+@inject UserManager<ApplicationUser> _userManager
 @model IEnumerable<Appointment>
+@{
+	ViewData["Title"] = "Dashboard";
+
+}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,33 +22,39 @@
 	<link rel="stylesheet" href="~/FrontFiles/fonts/style.css">
 	</head>
 	<body>
+		<h1>Dashboard</h1>
+		<hr />
 	<div class="main-container">
 		<!-- Content wrapper start -->
 		<div class="content-wrapper">
 
 			<!-- Row start -->
 			<div class="row gutters">
-				<div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-12">
+				<div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-12 mr-5">
 					<div class="hospital-tiles">
-						<a asp-controller="Doctor" asp-action="TotalAppointments" >
+						<a asp-controller="Doctor" asp-action="Appointments" >
 							<img src="~/FrontFiles/img/hospital/appointment.svg" alt="Appointments" />
 						</a>
 						<p>Total Appointments</p>
-						<h2>@Model.Count()</h2>
+						<h2>@Model.Where(x=>x.DoctorId == _userManager.GetUserId(User)).Count()</h2>
 					</div>
 				</div>
-				<div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-12">
+				<div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-12 mr-5">
 					<div class="hospital-tiles">
+						<a asp-controller="Doctor" asp-action="AcceptedAppointments">
 						<img src="~/FrontFiles/img/hospital/appointment.svg" alt="Appointments" />
+						</a>
 						<p>Accepted Appointments</p>
-						<h2>@Model.Count()</h2>
+						<h2>@Model.Where(x=>x.isAccepted == true && x.DoctorId == _userManager.GetUserId(User) ).Count()</h2>
 					</div>
 				</div>
-				<div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-12">
+				<div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-12 mr-5">
 					<div class="hospital-tiles">
+						<a asp-controller="Doctor" asp-action="RejectedAppointments">
 						<img src="~/FrontFiles/img/hospital/appointment.svg" alt="Appointments" />
+						</a>
 						<p> Rejected Appointments</p>
-						<h2>@Model.Count()</h2>
+						<h2>@Model.Where(x=>x.isAccepted == false && x.DoctorId == _userManager.GetUserId(User)).Count()</h2>
 					</div>
 				</div>
 

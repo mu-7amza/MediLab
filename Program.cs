@@ -16,6 +16,8 @@ namespace UserManager
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connectionString));
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
             builder.Services.AddMvc().AddNToastNotifyToastr(new ToastrOptions
             {
                 CloseButton = true,
@@ -34,6 +36,7 @@ namespace UserManager
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
+            app.UseSwaggerUI();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
@@ -46,6 +49,7 @@ namespace UserManager
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.UseSwagger(x=> x.SerializeAsV2 =true);
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

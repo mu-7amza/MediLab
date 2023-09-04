@@ -29,7 +29,9 @@ namespace UserManagment.Models
         public string? Doctor { get; set; }
 
         [ForeignKey(nameof(ApplicationUser))]
+        public string? userId { get; set; }
         public string? DoctorId { get; set; }
+
         public ApplicationUser? ApplicationUser { get; set; }
 
         public bool? isAccepted { get; set; }

@@ -9,6 +9,7 @@
 <table class="table table-striped mt-4">
     <thead>
         <tr class="bg-primary text-white">
+
             <th>Firstname</th>
             <th>LastName</th>
             <th>Username</th>
@@ -21,6 +22,7 @@
         @foreach(var user in Model)
         {
          <tr>
+           
                 <td>@user.FirstName</td>
                 <td>@user.LastName</td>
                 <td>@user.UserName</td>
@@ -38,7 +40,8 @@
         }
     </tbody>
 </table>
-@section Scripts{
+@section Scripts
+{
     <script>
         $(document).ready(function () {
             $('.js-delete').on('click', function () {
@@ -59,7 +62,7 @@
                     callback: function (result) {
                         if (result) {
                             $.ajax({
-                                url: '/api/roles/?userId=' + btn.data('id'),
+                                url: '/api/users/?userId=' + btn.data('id'),
                                 method: 'Delete',
                                 success: function () {
                                     btn.parents('tr').fadeOut();
@@ -75,4 +78,5 @@
             });
         });
     </script>
+
 }

@@ -27,19 +27,17 @@
                         @if (User.IsInRole("Admin"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Role" asp-action="Index">Manage Roles</a>
+                                <a class="nav-link text-dark" style="font-size:20px" asp-controller="Role" asp-action="Index">Manage Roles</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Users" asp-action="Index">Manage Users</a>
+                                <a class="nav-link text-dark" style="font-size:20px" asp-controller="Users" asp-action="Index">Manage Users</a>
                             </li>
                         }
                         @if (User.IsInRole("Doctor"))
                         {
+                           
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Doctor" asp-action="Patients">Pateints</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Doctor" asp-action="Index">Appointments</a>
+                                <a class="nav-link text-dark" style="font-size:20px" asp-controller="Doctor" asp-action="Index">Appointments</a>
                             </li>
                         }
                     </ul>

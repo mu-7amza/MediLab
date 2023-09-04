@@ -1,7 +1,6 @@
-﻿@using UserManagment.Models
-@model Appointment
+﻿@model AppointmentViewModel
 @{
-    ViewData["Title"] = "Make An Appointment";
+    ViewData["Title"] = "Edit Appointment";
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -13,12 +12,13 @@
     <link rel="stylesheet" href="~/files/css/style.css" asp-append-version="true" />
 </head>
 <body>
- 
+
     <div class="formbold-main-wrapper">
         <div class="formbold-form-wrapper">
             <h1>Fill Data :</h1>
             <hr />
-            <form asp-action="Create" method="post">
+            <form asp-action="Edit" method="post">
+                <input type="hidden" asp-for="Id" />
                 <div class="formbold-mb-5">
                     <label asp-for="FullName" class="formbold-form-label"> Full Name </label>
                     <input type="text"
@@ -78,8 +78,8 @@
                 </div>
                 <div class="formbold-mb-5">
                     <label for="time" class="formbold-form-label"> Select Doctor : </label>
-                   
-                    @Html.DropDownListFor(model => model.DoctorId,ViewBag.DoctorsSelectList as SelectList,"Select Doctor",new {@class = "form-control"})
+
+                    @Html.DropDownListFor(model => model.Doctor,ViewBag.DoctorsSelectList as SelectList,"Select Doctor",new {@class = "form-control"})
                 </div>
 
                 <div class="formbold-mb-5 formbold-pt-3">
@@ -119,18 +119,15 @@
                                        id="state"
                                        placeholder="Enter state"
                                        class="formbold-form-input" />
-                                       <span asp-validation-for="State" class="text-danger"></span>
+                                <span asp-validation-for="State" class="text-danger"></span>
                             </div>
                         </div>
-                       
+
                     </div>
                 </div>
 
                 <div>
-                    <button class="formbold-btn" type="submit">Book Appointment</button>
-                </div>
-                <div>
-                    
+                    <button class="formbold-btn" type="submit">Save Changes</button>
                 </div>
             </form>
         </div>
@@ -140,4 +137,3 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
-

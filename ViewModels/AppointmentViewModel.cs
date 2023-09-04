@@ -29,6 +29,7 @@ namespace UserManagment.ViewModels
         public string? DoctorId { get; set; }
         public ApplicationUser? ApplicationUser { get; set; }
         public string Doctor { get; set; }
-        
+        public bool? isAccepted { get; set; }
+
     }
 }

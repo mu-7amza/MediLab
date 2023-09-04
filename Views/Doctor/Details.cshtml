@@ -1,7 +1,7 @@
 ﻿@using UserManagment.Models
 @model Appointment
 @{
-    ViewData["Title"] = "Make An Appointment";
+    ViewData["Title"] = "Edit Appointment";
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -13,19 +13,20 @@
     <link rel="stylesheet" href="~/files/css/style.css" asp-append-version="true" />
 </head>
 <body>
- 
+
     <div class="formbold-main-wrapper">
         <div class="formbold-form-wrapper">
-            <h1>Fill Data :</h1>
+            <h1>Appointment Details</h1>
             <hr />
-            <form asp-action="Create" method="post">
+            <form asp-action="Edit">
+                <input type="hidden" asp-for="Id" />
                 <div class="formbold-mb-5">
                     <label asp-for="FullName" class="formbold-form-label"> Full Name </label>
                     <input type="text"
                            id="name"
                            asp-for="FullName"
                            placeholder="Full Name"
-                           class="formbold-form-input" />
+                           class="formbold-form-input" readonly />
                     <span asp-validation-for="FullName" class="text-danger"></span>
                 </div>
                 <div class="formbold-mb-5">
@@ -35,7 +36,7 @@
                            asp-for="Phone"
                            id="phone"
                            placeholder="Enter your phone number"
-                           class="formbold-form-input" />
+                           class="formbold-form-input" readonly />
                     <span asp-validation-for="Phone" class="text-danger"></span>
 
                 </div>
@@ -46,7 +47,7 @@
                            asp-for="Email"
                            id="email"
                            placeholder="Enter your email"
-                           class="formbold-form-input" />
+                           class="formbold-form-input" readonly />
                     <span asp-validation-for="Email" class="text-danger"></span>
 
                 </div>
@@ -58,7 +59,7 @@
                                    asp-for="Date"
                                    name="date"
                                    id="date"
-                                   class="formbold-form-input" />
+                                   class="formbold-form-input" readonly />
                             <span asp-validation-for="Date" class="text-danger"></span>
 
                         </div>
@@ -70,18 +71,13 @@
                                    name="time"
                                    asp-for="Time"
                                    id="time"
-                                   class="formbold-form-input" />
+                                   class="formbold-form-input" readonly />
                             <span asp-validation-for="Time" class="text-danger"></span>
 
                         </div>
                     </div>
                 </div>
-                <div class="formbold-mb-5">
-                    <label for="time" class="formbold-form-label"> Select Doctor : </label>
-                   
-                    @Html.DropDownListFor(model => model.DoctorId,ViewBag.DoctorsSelectList as SelectList,"Select Doctor",new {@class = "form-control"})
-                </div>
-
+               
                 <div class="formbold-mb-5 formbold-pt-3">
                     <label class="formbold-form-label formbold-form-label-2">
                         Address Details
@@ -94,7 +90,7 @@
                                        asp-for="Area"
                                        id="area"
                                        placeholder="Enter area"
-                                       class="formbold-form-input" />
+                                       class="formbold-form-input" readonly />
                                 <span asp-validation-for="Area" class="text-danger"></span>
 
                             </div>
@@ -106,7 +102,7 @@
                                        asp-for="City"
                                        id="city"
                                        placeholder="Enter city"
-                                       class="formbold-form-input" />
+                                       class="formbold-form-input" readonly />
                                 <span asp-validation-for="City" class="text-danger"></span>
 
                             </div>
@@ -118,19 +114,16 @@
                                        asp-for="State"
                                        id="state"
                                        placeholder="Enter state"
-                                       class="formbold-form-input" />
-                                       <span asp-validation-for="State" class="text-danger"></span>
+                                       class="formbold-form-input" readonly />
+                                <span asp-validation-for="State" class="text-danger"></span>
                             </div>
                         </div>
-                       
+
                     </div>
                 </div>
 
                 <div>
-                    <button class="formbold-btn" type="submit">Book Appointment</button>
-                </div>
-                <div>
-                    
+                    <a asp-action="Appointments" class="btn btn-primary text-light">Back</a>
                 </div>
             </form>
         </div>
@@ -140,4 +133,3 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
-

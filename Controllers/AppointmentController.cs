@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using MediLab.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -12,6 +13,7 @@ using UserManagment.ViewModels;
 
 namespace UserManagment.Controllers
 {
+    [Authorize(Roles = "User")]
 
     public class AppointmentController : Controller
     {
@@ -30,7 +32,7 @@ namespace UserManagment.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var appointments = await context.Appointments.Where(x => x.DoctorId == userManager.GetUserId(HttpContext.User)).Select(appointment => new AppointmentViewModel
+            var appointments = await context.Appointments.Where(x => x.userId == userManager.GetUserId(HttpContext.User)).Select(appointment => new AppointmentViewModel
             {
                 Id = appointment.Id,
                 FullName = appointment.FullName,
@@ -41,7 +43,8 @@ namespace UserManagment.Controllers
                 State = appointment.State,
                 Date = appointment.Date,
                 Time = appointment.Time,
-                Doctor = appointment.Doctor
+                Doctor = appointment.Doctor,
+                isAccepted = appointment.isAccepted
             }).ToListAsync();
             if (appointments == null)
             {
@@ -52,27 +55,40 @@ namespace UserManagment.Controllers
 
         public async Task<IActionResult> Create()
         {
-            var doctorNames = await userManager.GetUsersInRoleAsync("Doctor");
-            ViewBag.DoctorsSelectList = new SelectList(doctorNames.Select(x => "Dr/ " + x.FirstName + " " + x.LastName));
+            var doctorRoles = await userManager.GetUsersInRoleAsync("Doctor");
+            var doctorNames = doctorRoles.Select(doctor => new DoctorListViewModel
+            {
+                DoctorId = doctor.Id,
+                FirstName = doctor.FirstName,
+                LastName = doctor.LastName,
+            }).ToList();
+
+            ViewBag.DoctorsSelectList = new SelectList(doctorNames,"DoctorId","FirstName","Lastname");
             return View();
 
         }
         [HttpPost]
         public async Task<IActionResult> Create(Appointment appointment)
         {
-            appointment.DoctorId = userManager.GetUserId(HttpContext.User);
-            await context.AddAsync(appointment);
+            var Doctor = await userManager.FindByIdAsync(appointment.DoctorId);
+            appointment.Doctor = Doctor.FirstName + " " + Doctor.LastName;
+            appointment.userId = userManager.GetUserId(HttpContext.User);
+            context.Appointments.Add(appointment);
             context.SaveChanges();
             return RedirectToAction("Index");
         }
-        public async Task<IActionResult> Edit(string userId)
+        public async Task<IActionResult> Edit(int appId)
         {
-            var appointment = await context.Appointments.FindAsync(userId);
+            var appointment = await context.Appointments.FindAsync(appId);
 
             if (appointment == null)
             {
                 return NotFound();
             }
+
+            var doctorNames = await userManager.GetUsersInRoleAsync("Doctor");
+            ViewBag.DoctorsSelectList = new SelectList(doctorNames.Select(x => "Dr/ " + x.FirstName + " " + x.LastName));
+
 
             var viewModel = new AppointmentViewModel
             {
@@ -80,7 +96,6 @@ namespace UserManagment.Controllers
                 FullName = appointment.FullName,
                 Phone = appointment.Phone,
                 Email = appointment.Email,
-                Doctor = appointment.Doctor,
                 DoctorId = appointment.DoctorId,
                 Time = appointment.Time,
                 Date = appointment.Date,
@@ -116,7 +131,7 @@ namespace UserManagment.Controllers
             appointment.Doctor = model.Doctor;
 
             context.Appointments.Update(appointment);
-
+            context.SaveChanges();
 
             return RedirectToAction(nameof(Index));
 

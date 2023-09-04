@@ -40,7 +40,9 @@ namespace UserManager.Controllers
         public async Task<IActionResult> Add()
         {
 
-            var roles = await _roleManager.Roles.Select(r => new RoleViewModel { RoleId = r.Id , RoleName = r.Name}).ToListAsync();
+            var roles = await _roleManager.Roles.
+                Select(r => new RoleViewModel { RoleId = r.Id , RoleName = r.Name})
+                .ToListAsync();
 
             var viewModel = new AddUserViewModel
             {
@@ -96,8 +98,11 @@ namespace UserManager.Controllers
                 }
             }
 
-            await _userManager.AddToRolesAsync(user, model.Roles.Where(r => r.IsSelected == true).
-                Select(r => r.RoleName));
+         
+                await _userManager.AddToRolesAsync(user, model.Roles.
+                    Where(r => r.IsSelected == true)
+                    .Select(r => r.RoleName));
+            
 
             return RedirectToAction(nameof(Index));
 

@@ -9,12 +9,13 @@ namespace UserManagment.Controllers.Api
     [Route("api/[controller]")]
     [ApiController]
     [Authorize(Roles = "Admin")]
-    public class RoleController : ControllerBase
+
+    public class UsersController : ControllerBase
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IToastNotification toastNotification;
 
-        public RoleController(UserManager<ApplicationUser> userManager, IToastNotification _toastNotification)
+        public UsersController(UserManager<ApplicationUser> userManager, IToastNotification _toastNotification)
         {
             _userManager = userManager;
             toastNotification = _toastNotification;

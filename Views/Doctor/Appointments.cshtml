@@ -1,0 +1,147 @@
+﻿@model IEnumerable<AppointmentViewModel>
+@inject UserManager<ApplicationUser> userManager
+
+
+@{
+    ViewData["Title"] = "Total Appointments";
+
+        var id = userManager.GetUserId(User);
+        var user = userManager.Users.Where(x => x.Id == id).Select(x => x.FirstName + " " + x.LastName).First();
+
+        <h1>Dr/ @user Appointments</h1>
+        
+        <hr />
+        <br />
+ 
+        <div class="row-md-8">
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        
+                        <th>Patient Name</th>
+                        <th>Phone Number</th>
+                        <th>Appointment Date</th>
+                        <th>Actions</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                  
+                        @foreach (var app in Model)
+                        {
+                            <tr>
+                           
+                                <td>@app.FullName</td>
+                                <td>@app.Phone</td>
+                                <td>@app.Date.DayOfWeek at @app.Time </td>
+                        @if(app.isAccepted == true)
+                        {
+                            <td>
+                            Accepted
+                            </td>
+                            
+                        }
+                        else if(app.isAccepted == false)
+                        {
+                            <td>
+                            Rejected
+                            </td>
+                        }
+                        else
+                        {
+                            <td id="actions">
+                                <button class=" js-accept" href="javascript:;" data-id="@app.Id"><img src="~/files/img/check-box.png" alt="done" style="max-width:70px;max-height:40px" /></button>
+                                <button class=" mr-3 js-reject" href="javascript:;" data-id="@app.Id"><img src="~/files/img/reject.png" alt="done" style="max-width:70px;max-height:40px" /></button>
+                                <a asp-action="Details" asp-route-appId="@app.Id"><img src="~/files/img/list.png" alt="done" style="max-width:70px;max-height:40px" /></a>
+                            </td>
+                        }
+                            </tr>
+                        }
+                    
+                </tbody>
+
+            </table>
+
+        </div>
+
+    }
+
+
+@section Scripts
+    {
+    <script>
+        $(document).ready(function () {
+            $('.js-accept').on('click', function () {
+                var btn = $(this);
+
+                bootbox.confirm({
+                    message: 'You are going to accept this appointment?',
+                    buttons: {
+                        confirm: {
+                            label: 'Ok',
+                            className: 'btn-success'
+                        },
+                        cancel: {
+                            label: 'Cancel',
+                            className: 'btn-danger'
+                        }
+                    },
+                    callback: function (result) {
+                        if (result) {
+                            $.ajax({
+                                url: '/api/doctor/accept/?appId=' + btn.data('id'),
+                                method: 'Put',
+                                success: function () {
+                                    btn.parents('tr').fadeOut();
+
+                                },
+                                error: function () {
+                                    alert('something went wrong');
+                                }
+
+                            });
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('.js-reject').on('click', function () {
+                var btn = $(this);
+
+                bootbox.confirm({
+                    message: 'You are going to reject this appointment?',
+                    buttons: {
+                        confirm: {
+                            label: 'Ok',
+                            className: 'btn-success'
+                        },
+                        cancel: {
+                            label: 'Cancel',
+                            className: 'btn-danger'
+                        }
+                    },
+                    callback: function (result) {
+                        if (result) {
+                            $.ajax({
+                                url: '/api/doctor/reject/?appId=' + btn.data('id'),
+                                method: 'Put',
+                                success: function () {
+                                    btn.parents('tr').fadeOut();
+
+                                },
+                                error: function () {
+                                    alert('something went wrong');
+                                }
+
+                            });
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+}
+

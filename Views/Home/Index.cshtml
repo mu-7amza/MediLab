@@ -33,7 +33,7 @@
 </head>
 
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
-    @if(_signInManager.IsSignedIn(User) && User.IsInRole("Doctor"))
+    @if (_signInManager.IsSignedIn(User) && (User.IsInRole("Doctor") || User.IsInRole("Admin")))
     {
         <section id="banner" class="banner">
             <div class="bg-color">
